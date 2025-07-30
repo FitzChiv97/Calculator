@@ -97,7 +97,7 @@
     </div>
 
     <script>
-      let calculation = '';
+      let calculation = localStorage.getItem('calculation') || '';
 
       function calculator(calculation) {
         let arr = calculation.split(' ');
@@ -114,7 +114,8 @@
           // console.log(base);
         }
 
-        return String(base);
+        localStorage.setItem('calculation', `${base}`);
+        return String(base);  //saves result in calculation variable
       }
 
       function updateCalculation(value) {
@@ -122,9 +123,11 @@
           calculation += value;
           console.log(calculation);
         } else {
-          calculation = value;
+          calculation = value;      //clears calc str because '' == false
           console.log('Cleared.');
         }
+
+        localStorage.setItem('calculation', `${calculation}`);
       }
 
     </script>
