@@ -3,101 +3,140 @@
   <head>
     <title>Calculator</title>
     <style>
-      div {
-        margin: 20px 0px;
+      p{
+        margin: 5px 0px;
       }
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+      }
+
+      .row {
+        margin: 5px 0px;
+      }
+
     </style>
   </head>
+
   <body>
+    <div class="wrapper">
+        <div class="row">
+          <p>Calculator</p>
+        </div>
 
-    <p>Calculator</p>
-
-    <!-------1-3-------->
-    <div>
-    <button onclick="
-      updateCalculation('1');
-    ">1</button>
-
-    <button onclick="
-      updateCalculation('2');
-    ">2</button>
-
-    <button onclick="
-      updateCalculation('3');
-    ">3</button>
-
-    <button onclick="
-      updateCalculation(' + ');
-    ">+</button>
-    </div>
-
-
-    <!-------4-6-------->
-    <div>
-    <button onclick="
-      updateCalculation('4');
-    ">4</button>
-
-    <button onclick="
-      updateCalculation('5');
-    ">5</button>
-
-    <button onclick="
-      updateCalculation('6');
-    ">6</button>
-
-    <button onclick="
-      updateCalculation(' - ');
-    ">-</button>
-    </div>
-
-    <!-------7-9-------->
-    <div>
-    <button onclick="
-      updateCalculation('7');
-    ">7</button>
-
-    <button onclick="
-      updateCalculation('8');
-    ">8</button>
-
-    <button onclick="
-      updateCalculation('9');
-    ">9</button>
-
-    <button onclick="
-      updateCalculation(' * ');
-    ">*</button>
-    </div>
-
-    <!-------bottom-------->
-    <div>
-    <button onclick="
-      updateCalculation('0');
-    ">0</button>
-
-    <button onclick="
-      updateCalculation('.');
-    ">.</button>
-
-    <button onclick="
-      calculation = calculator(calculation);
-      console.log(calculation);
-    ">=</button>
-
-    <button onclick="
-      updateCalculation(' / ');
-    ">/</button>
-    </div>
-
-    <div>
-      <button onclick="
-        updateCalculation('');
-        ">Clear</button>
+        <div class="row">
+          <p class="js-display"></p>
+        </div>
+    
+        <!-------1-3-------->
+        <div class="row"> 
+          <button onclick="
+            updateCalculation('1');
+          ">1</button>
+    
+          <button onclick="
+            updateCalculation('2');
+          ">2</button>
+    
+          <button onclick="
+            updateCalculation('3');
+          ">3</button>
+    
+          <button onclick="
+            updateCalculation(' + ');
+          ">+</button>
+        </div>
+    
+    
+        <!-------4-6-------->
+        <div class="row">
+          <button onclick="
+            updateCalculation('4');
+          ">4</button>
+    
+          <button onclick="
+            updateCalculation('5');
+          ">5</button>
+    
+          <button onclick="
+            updateCalculation('6');
+          ">6</button>
+    
+          <button onclick="
+            updateCalculation(' - ');
+          ">-</button>
+        </div>
+    
+        <!-------7-9-------->
+        <div class="row">
+          <button onclick="
+            updateCalculation('7');
+          ">7</button>
+    
+          <button onclick="
+            updateCalculation('8');
+          ">8</button>
+    
+          <button onclick="
+            updateCalculation('9');
+          ">9</button>
+    
+          <button onclick="
+            updateCalculation(' * ');
+          ">*</button>
+        </div>
+    
+        <!-------bottom-------->
+        <div class="row">
+          <button onclick="
+            updateCalculation('0');
+          ">0</button>
+    
+          <button onclick="
+            updateCalculation('.');
+          ">.</button>
+    
+          <button onclick="
+            calculation = calculator(calculation);
+            displayCalculation();
+          ">=</button>
+    
+          <button onclick="
+            updateCalculation(' / ');
+          ">/</button>
+        </div>
+    
+        <div class="row">
+          <button onclick="
+            updateCalculation('');
+            ">Clear</button>
+        </div>  
     </div>
 
     <script>
       let calculation = localStorage.getItem('calculation') || '';
+      displayCalculation();
+
+      function updateCalculation(value) {
+        if (value) {
+          calculation += value;
+          displayCalculation();
+
+        } else {
+          calculation = ''; 
+          //clears calculation variable because '' == false
+          displayCalculation();
+        }
+
+        localStorage.setItem('calculation', `${calculation}`);
+      }
+
+      function displayCalculation() {
+        document.querySelector('.js-display')
+            .innerHTML = calculation;
+      }
 
       function calculator(calculation) {
         let arr = calculation.split(' ');
@@ -114,20 +153,8 @@
           // console.log(base);
         }
 
-        localStorage.setItem('calculation', `${base}`);
-        return String(base);  //saves result in calculation variable
-      }
-
-      function updateCalculation(value) {
-        if (value) {
-          calculation += value;
-          console.log(calculation);
-        } else {
-          calculation = value;      //clears calc str because '' == false
-          console.log('Cleared.');
-        }
-
-        localStorage.setItem('calculation', `${calculation}`);
+        localStorage.setItem('calculation', `${base}`); 
+        return String(base); //saves result in calculation variable
       }
 
     </script>
